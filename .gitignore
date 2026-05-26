@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.httr-oauth
+.DS_Store
+.quarto
+.positai
+*scrap.R
+*.csv
+*out/*.csv
+*out/*.png
+*.zip
+*.qmd
+*.rds
+*.html
+*app/data/
+hyPPO.Rproj
