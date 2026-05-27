@@ -10,6 +10,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
+api_req <- function(url, username, password) {
+  httr2::request(paste0(
+    "https://bcmoe-prod.aquaticinformatics.net/AQUARIUS/Publish/v2/",
+    url
+  )) |>
+    httr2::req_auth_basic(username = username, password = password)
+}
+
+
 # 01_field-visit functions ------------------------------------------------
 
 location_data <- function(location_url, site, username, password) {
