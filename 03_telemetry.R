@@ -15,7 +15,7 @@
 source("00_setup.R")
 source('functions.R')
 
-all_ts_meta <- read_csv('timeseries_info_w_approvals.csv')
+all_ts_meta <- read_csv('out/timeseries_info_w_approvals.csv')
 fv_meta_data <- read_csv('out/site_locations.csv')
 station_locations <- fv_meta_data |>
   select(c(LocationName, LocationIdentifier))

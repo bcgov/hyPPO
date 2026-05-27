@@ -66,15 +66,14 @@ grade_levels = ts_id |>
   list_rbind() |>
   left_join(all_ts_ids, by = "UniqueId")
 
-write_csv(grade_levels, "grade_levels.csv")
+#write_csv(grade_levels, "out/grade_levels.csv")
 
 all_ts_meta = grade_levels |>
   select(-c(GradeCode, StartTime, EndTime)) |>
   unique() |>
   left_join(all_approval_level, by = c("UniqueId", "site"))
 
-write_csv(all_ts_meta, 'timeseries_info_w_approvals.csv')
-
+write_csv(all_ts_meta, 'out/timeseries_info_w_approvals.csv')
 
 ts_id_info <- all_ts_ids |>
   rename(LocationIdentifier = site) |>
@@ -92,7 +91,7 @@ ts_id_info <- all_ts_ids |>
   distinct() |>
   arrange(UniqueId, LocationIdentifier, Parameter, DateAppliedUtc)
 
-write_csv(ts_id_info, 'timeseries_id_info.csv')
+#write_csv(ts_id_info, 'timeseries_id_info.csv')
 
 # Read in csv. if re-starting here -------------------------------
 

@@ -19,7 +19,6 @@ library(purrr)
 library(readr)
 library(tidyr)
 library(lubridate)
-library(AquaPI)
 library(ggplot2)
 library(envreportutils)
 library(stringr)
@@ -28,9 +27,24 @@ library(forcats)
 if (!dir.exists('out')) {
   dir.create('out')
 }
-if (!dir.exists('out/figures')) {
-  dir.create('out/figures')
+
+# if (!dir.exists('out/figures')) {
+#   dir.create('out/figures')
+# }
+
+get_creds <- function() {
+  list(
+    username = Sys.getenv("APP_USERNAME"),
+    password = Sys.getenv("APP_PASSWORD")
+  )
 }
+
+# safety check
+
+if (Sys.getenv("APP_USERNAME") == "" || Sys.getenv("APP_PASSWORD") == "") {
+  stop("Missing credentials: check GitHub secrets")
+}
+
 
 prev_year <- 2024
 current_year <- 2025
