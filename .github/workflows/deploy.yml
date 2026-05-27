@@ -8,6 +8,10 @@ on:
     # Runs daily at 7 AM UTC
     - cron: '0 14 * * 1-5'
 
+
+  permissions:
+   contents: read
+
   workflow_dispatch:  # optional manual trigger
 
 jobs:
