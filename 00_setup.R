@@ -28,9 +28,9 @@ if (!dir.exists('out')) {
   dir.create('out')
 }
 
-# if (!dir.exists('out/figures')) {
-#   dir.create('out/figures')
-# }
+if (!dir.exists('app/data')) {
+  dir.create('app/data')
+}
 
 username = Sys.getenv("APP_USERNAME")
 password = Sys.getenv("APP_PASSWORD")
