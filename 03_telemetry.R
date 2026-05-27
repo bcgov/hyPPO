@@ -12,13 +12,12 @@
 
 # Telemetry Data for Weekly Report -----------------------------------------------
 
-source("00_setup.R")
-source('functions.R')
+# source("00_setup.R")
+# source('functions.R')
 
-all_ts_meta <- read_csv('out/timeseries_info_w_approvals.csv')
-fv_meta_data <- read_csv('out/site_locations.csv')
-station_locations <- fv_meta_data |>
-  select(c(LocationName, LocationIdentifier))
+# all_ts_meta <- read_csv('out/timeseries_info_w_approvals.csv')
+
+station_locations <- readRDS('out/site_name_lookup.rds')
 
 
 # Part 1: Extracting telemetry data for each site and parameter --------

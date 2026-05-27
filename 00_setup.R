@@ -37,10 +37,9 @@ password = Sys.getenv("APP_PASSWORD")
 
 # safety check
 
-if (Sys.getenv("APP_USERNAME") == "" || Sys.getenv("APP_PASSWORD") == "") {
-  stop("Missing credentials: check GitHub secrets")
-}
-
+# if (Sys.getenv("APP_USERNAME") == "" || Sys.getenv("APP_PASSWORD") == "") {
+#   stop("Missing credentials: check GitHub secrets")
+# }
 
 prev_year <- 2024
 current_year <- 2025

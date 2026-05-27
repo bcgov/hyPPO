@@ -10,12 +10,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-source('00_setup.R')
-source('functions.R')
+#source('00_setup.R')
+#source('functions.R')
 
-fv_meta_data <- read_csv('out/site_locations.csv')
-station_locations <- fv_meta_data |>
-  select(c(LocationName, LocationIdentifier))
+station_locations <- readRDS('out/site_name_lookup.rds')
 
 # Retrieve all unique timeseries ids ---------------------------------------------
 
@@ -54,7 +52,7 @@ all_approval_level = ts_id |>
   list_rbind() |>
   left_join(all_ts_ids, by = "UniqueId")
 
-write_rds(all_approval_level, 'out/approval_levels.rds')
+#write_rds(all_approval_level, 'out/approval_levels.rds')
 
 ## Retrieve grade level and additional meta data-----------------------------------
 
@@ -73,7 +71,7 @@ all_ts_meta = grade_levels |>
   unique() |>
   left_join(all_approval_level, by = c("UniqueId", "site"))
 
-write_csv(all_ts_meta, 'out/timeseries_info_w_approvals.csv')
+#write_csv(all_ts_meta, 'out/timeseries_info_w_approvals.csv')
 
 ts_id_info <- all_ts_ids |>
   rename(LocationIdentifier = site) |>

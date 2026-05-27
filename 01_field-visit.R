@@ -39,7 +39,6 @@ site_name_lookup <- all_location_meta |>
 
 write_rds(site_name_lookup, 'out/site_name_lookup.rds')
 
-
 # Review Status by Station
 
 all_fv_info = sites |>
