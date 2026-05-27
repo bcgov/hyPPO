@@ -41,9 +41,12 @@ jobs:
               any::lubridate
               any::readr
               any::forcats
-              any::envreportutils
+              github::bcgov/your-internal-package
 
       - name: Run data pipeline scripts
+        env:
+          APP_USERNAME: ${{ secrets.APP_USERNAME }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
         run: |
           Rscript 01_field-visit.R
           Rscript 02_timeseries.R
@@ -54,6 +57,7 @@ jobs:
           SHINYAPPS_NAME: ${{ secrets.SHINYAPPS_NAME }}
           SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
           SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Rscript -e '
             library(rsconnect);
