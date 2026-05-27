@@ -32,12 +32,8 @@ if (!dir.exists('out')) {
 #   dir.create('out/figures')
 # }
 
-get_creds <- function() {
-  list(
-    username = Sys.getenv("APP_USERNAME"),
-    password = Sys.getenv("APP_PASSWORD")
-  )
-}
+username = Sys.getenv("APP_USERNAME")
+password = Sys.getenv("APP_PASSWORD")
 
 # safety check
 
