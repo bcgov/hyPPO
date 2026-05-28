@@ -97,33 +97,6 @@ grade_codes <- c(
   "100 - Grade U - Unknown" = "#b5b5b5"
 )
 
-
-# Retrieving Locations ----------------------------------------------------
-
-location_url <- "GetLocationData"
-
-all_location_meta = sites |>
-  purrr::map(
-    \(sites) {
-      location_data(
-        location_url,
-        sites,
-        username = username,
-        password = password
-      )
-    },
-    .progress = TRUE
-  ) |>
-  purrr::list_rbind() |>
-  mutate(LocationName = word(LocationName, 1, 2, sep = " "))
-
-
-site_name_lookup <- all_location_meta |>
-  select(LocationName, Identifier) |>
-  rename(LocationIdentifier = Identifier)
-
-write_rds(site_name_lookup, 'out/site_name_lookup.rds')
-
 # Functions required ------------------------------------------------------
 
 api_req <- function(url, username, password) {
@@ -214,6 +187,33 @@ extract_fv_info_mod <- function(site, username, password) {
     dplyr::group_by(Year) |>
     dplyr::mutate(n_per_year = n())
 }
+
+
+# Retrieving Locations ----------------------------------------------------
+
+location_url <- "GetLocationData"
+
+all_location_meta = sites |>
+  purrr::map(
+    \(sites) {
+      location_data(
+        location_url,
+        sites,
+        username = username,
+        password = password
+      )
+    },
+    .progress = TRUE
+  ) |>
+  purrr::list_rbind() |>
+  mutate(LocationName = word(LocationName, 1, 2, sep = " "))
+
+
+site_name_lookup <- all_location_meta |>
+  select(LocationName, Identifier) |>
+  rename(LocationIdentifier = Identifier)
+
+write_rds(site_name_lookup, 'out/site_name_lookup.rds')
 
 
 # Review Status by Station
