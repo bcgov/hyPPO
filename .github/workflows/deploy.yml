@@ -72,5 +72,5 @@ jobs:
               secret = Sys.getenv("SHINYAPPS_SECRET")
             );
 
-            rsconnect::deployApp(appDir = "app", appName = "weekly-hydrometric-app)
+            rsconnect::deployApp(appDir = "app", appName = "weekly-hydrometric-app")
           '
