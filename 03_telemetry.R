@@ -58,7 +58,7 @@ dates = c(date_from, date_to, mid_date)
 # map function over all telemetry ids of interest. ETA 2 mins
 
 ts_telemetry = telemetry_id |>
-  map(
+  purrr::map(
     \(telemetry_id) {
       timeseries_req(telemetry_id, date_from, date_to, username, password)
     },
@@ -142,7 +142,10 @@ write_csv(current_reading, 'app/data/current_reading.csv')
 ## Extract shift IDs ---------------------------------------
 
 shift_id_table = ts_sites |>
-  map(\(ts_sites) shift_ids(ts_sites, username, password), .progress = TRUE) |>
+  purrr::map(
+    \(ts_sites) shift_ids(ts_sites, username, password),
+    .progress = TRUE
+  ) |>
   purrr::list_rbind() |>
   filter(InputParameter == "Stage") |>
   filter(Label != "GUIC") |>
@@ -172,7 +175,7 @@ shift_id_list = unique(tele_id$Identifier)
 # mapping shift function over all shift ids
 
 shift_last_applied = shift_id_list |>
-  map(
+  purrr::map(
     \(shift_id_list) extract_shift(shift_id_list, username, password, tele_id),
     .progress = TRUE
   ) |>
@@ -186,7 +189,7 @@ write_rds(shift_last_applied, 'app/data/shift_last_applied.rds')
 # I added this in for the weekly app - to be separate from the 01_field-visit.R
 
 all_fv_info = sites |>
-  map(
+  purrr::map(
     \(sites) {
       extract_fv_info_mod(sites, username = username, password = password)
     },

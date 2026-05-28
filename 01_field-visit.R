@@ -10,15 +10,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-source('00_setup.R')
-source('functions.R')
+#source('00_setup.R')
+#source('functions.R')
 
 # Retrieving Locations ----------------------------------------------------
 
 location_url <- "GetLocationData"
 
 all_location_meta = sites |>
-  map(
+  purrr::map(
     \(sites) {
       location_data(
         location_url,
@@ -42,7 +42,7 @@ write_rds(site_name_lookup, 'out/site_name_lookup.rds')
 # Review Status by Station
 
 all_fv_info = sites |>
-  map(
+  purrr::map(
     \(sites) {
       extract_fv_info_mod(sites, username = username, password = password)
     },

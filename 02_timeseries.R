@@ -21,7 +21,7 @@ station_locations <- readRDS('out/site_name_lookup.rds')
 # Get information on what each timeseries id references
 
 all_ts_ids = ts_sites |>
-  map(
+  purrr::map(
     \(ts_sites) {
       retrieve_ts_ids(
         ts_sites,
@@ -43,7 +43,7 @@ ts_id = as.list(all_ts_ids$UniqueId)
 ## Approval Level ----------------------------------------------------------
 
 all_approval_level = ts_id |>
-  map(
+  purrr::map(
     \(ts_id) {
       retrieve_approvals(ts_id, username = username, password = password)
     },
@@ -57,7 +57,7 @@ all_approval_level = ts_id |>
 ## Retrieve grade level and additional meta data-----------------------------------
 
 grade_levels = ts_id |>
-  map(
+  purrr::map(
     \(ts_id) ts_meta_data(ts_id, username = username, password = password),
     .progress = TRUE
   ) |>
