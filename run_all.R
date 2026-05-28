@@ -835,17 +835,17 @@ write_rds(shift_last_applied, 'app/data/shift_last_applied.rds')
 # Part 3 Field Visit Information -------------------------------------------------
 # I added this in for the weekly app - to be separate from the 01_field-visit.R
 
-all_fv_info = sites |>
-  purrr::map(
-    \(sites) {
-      extract_fv_info_mod(sites, username = username, password = password)
-    },
-    .progress = TRUE
-  ) |>
-  purrr::list_rbind()
-
-all_fv_info = all_fv_info |>
-  left_join(site_name_lookup, by = 'LocationIdentifier')
+# all_fv_info = sites |>
+#   purrr::map(
+#     \(sites) {
+#       extract_fv_info_mod(sites, username = username, password = password)
+#     },
+#     .progress = TRUE
+#   ) |>
+#   purrr::list_rbind()
+#
+# all_fv_info = all_fv_info |>
+#   left_join(site_name_lookup, by = 'LocationIdentifier')
 
 # Days since last visit
 
@@ -871,7 +871,7 @@ most_recent <- all_fv_info |>
     )
   ) |>
   left_join(
-    fv_meta_data |>
+    all_location_meta |>
       select(LocationName, Latitude, Longitude, ElevationUnits, Elevation),
     by = c('LocationName')
   )
@@ -891,21 +891,22 @@ map_data = current_reading |>
     )
   ) |>
   left_join(
-    most_recent |> select(LocationName, UploadedByUser, Date, Most_Recent),
-    by = c('LocationName')
-  ) |>
-  left_join(
-    fv_meta_data |>
-      select(
-        LocationName,
-        Latitude,
-        Longitude,
-        ElevationUnits,
-        Elevation,
-        color,
-        legend
-      ),
-    by = c('LocationName')
+    most_recent,
+    by = c('LocationName', 'LocationIdentifier')
   )
+# ) |>
+# left_join(
+#   fv_meta_data |>
+#     select(
+#       LocationName,
+#       Latitude,
+#       Longitude,
+#       ElevationUnits,
+#       Elevation,
+#       color,
+#       legend
+#     ),
+#   by = c('LocationName')
+# )
 
 write_csv(map_data, "app/data/map_data.csv")
