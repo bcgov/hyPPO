@@ -32,7 +32,7 @@ all_ts_ids = ts_sites |>
     },
     .progress = TRUE
   ) |>
-  list_rbind()
+  purrr::list_rbind()
 
 ts_id = as.list(all_ts_ids$UniqueId)
 
@@ -49,7 +49,7 @@ all_approval_level = ts_id |>
     },
     .progress = TRUE
   ) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   left_join(all_ts_ids, by = "UniqueId")
 
 #write_rds(all_approval_level, 'out/approval_levels.rds')
@@ -61,7 +61,7 @@ grade_levels = ts_id |>
     \(ts_id) ts_meta_data(ts_id, username = username, password = password),
     .progress = TRUE
   ) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   left_join(all_ts_ids, by = "UniqueId")
 
 #write_csv(grade_levels, "out/grade_levels.csv")

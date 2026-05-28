@@ -29,7 +29,7 @@ all_location_meta = sites |>
     },
     .progress = TRUE
   ) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   mutate(LocationName = word(LocationName, 1, 2, sep = " "))
 
 
@@ -48,7 +48,7 @@ all_fv_info = sites |>
     },
     .progress = TRUE
   ) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   left_join(site_name_lookup, by = 'LocationIdentifier')
 
 write_rds(all_fv_info, "app/data/field_visits.rds")

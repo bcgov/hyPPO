@@ -64,7 +64,7 @@ ts_telemetry = telemetry_id |>
     },
     .progress = TRUE
   ) |>
-  list_rbind()
+  purrr::list_rbind()
 
 # tidy combined telemetry data and calculate monthly means
 
@@ -143,7 +143,7 @@ write_csv(current_reading, 'app/data/current_reading.csv')
 
 shift_id_table = ts_sites |>
   map(\(ts_sites) shift_ids(ts_sites, username, password), .progress = TRUE) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   filter(InputParameter == "Stage") |>
   filter(Label != "GUIC") |>
   filter(Label != "CLP2.WLRS")
@@ -176,7 +176,7 @@ shift_last_applied = shift_id_list |>
     \(shift_id_list) extract_shift(shift_id_list, username, password, tele_id),
     .progress = TRUE
   ) |>
-  list_rbind() |>
+  purrr::list_rbind() |>
   left_join(tele_shift_id, by = "UniqueId") |>
   left_join(station_locations, by = "LocationIdentifier")
 
@@ -192,7 +192,7 @@ all_fv_info = sites |>
     },
     .progress = TRUE
   ) |>
-  list_rbind()
+  purrr::list_rbind()
 
 all_fv_info = all_fv_info |>
   left_join(station_locations, by = 'LocationIdentifier')
