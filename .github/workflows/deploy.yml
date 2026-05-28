@@ -54,10 +54,7 @@ jobs:
           APP_USERNAME: ${{ secrets.APP_USERNAME }}
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
         run: |
-          Rscript functions.R
-          Rscript 01_field-visit.R
-          Rscript 02_timeseries.R
-          Rscript 03_telemetry.R
+          Rscript run_all.R
 
       - name: Deploy to shinyapps.io
         env:
