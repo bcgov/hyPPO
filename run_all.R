@@ -446,7 +446,7 @@ ts_data_ids <- all_ts_meta |>
     StartTime = as_datetime(StartTime),
     EndTime = as_datetime(EndTime)
   ) |>
-  left_join(station_locations, by = "LocationIdentifier") |>
+  left_join(site_name_lookup, by = "LocationIdentifier") |>
   mutate(
     EndTime = case_when(EndTime > Sys.Date() ~ StartTime, TRUE ~ EndTime)
   ) |>
@@ -464,13 +464,13 @@ latest_trans = ts_data_ids |>
 
 date_from = as.Date('2024-01-01')
 date_to = as.Date(Sys.Date())
-LocationIdentifier = unique(station_locations$LocationIdentifier)
+LocationIdentifier = unique(site_name_lookup$LocationIdentifier)
 Parameter = c("Stage", "Discharge")
 
 Date <- seq.Date(from = date_from, to = date_to, by = "day")
 
 year_grid = crossing(Date, Parameter, LocationIdentifier) |>
-  left_join(station_locations, by = "LocationIdentifier")
+  left_join(site_name_lookup, by = "LocationIdentifier")
 
 ts_data_test <- year_grid |>
   left_join(
@@ -687,7 +687,7 @@ telemetry_db = all_ts_meta |>
 telemetry_list = telemetry_db |>
   select(LocationIdentifier, Parameter, Label, UniqueId) |>
   unique() |>
-  left_join(station_locations, by = "LocationIdentifier")
+  left_join(site_name_lookup, by = "LocationIdentifier")
 
 telemetry_id = as.list(telemetry_db$UniqueId)
 
@@ -721,7 +721,7 @@ ts_telemetry = ts_telemetry |>
   arrange(DateTime) |>
   mutate(monthly_mean = mean(NumericValue1)) |>
   ungroup() |>
-  left_join(station_locations, by = "LocationIdentifier") # add station names
+  left_join(site_name_lookup, by = "LocationIdentifier") # add station names
 
 # identify value from 7-days prior from current data (to provide a change metric)
 
@@ -828,7 +828,7 @@ shift_last_applied = shift_id_list |>
   ) |>
   purrr::list_rbind() |>
   left_join(tele_shift_id, by = "UniqueId") |>
-  left_join(station_locations, by = "LocationIdentifier")
+  left_join(site_name_lookup, by = "LocationIdentifier")
 
 write_rds(shift_last_applied, 'app/data/shift_last_applied.rds')
 
@@ -845,7 +845,7 @@ all_fv_info = sites |>
   purrr::list_rbind()
 
 all_fv_info = all_fv_info |>
-  left_join(station_locations, by = 'LocationIdentifier')
+  left_join(site_name_lookup, by = 'LocationIdentifier')
 
 # Days since last visit
 
