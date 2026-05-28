@@ -54,7 +54,6 @@ jobs:
           APP_USERNAME: ${{ secrets.APP_USERNAME }}
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
         run: |
-          Rscript 00_setup.R
           Rscript functions.R
           Rscript 01_field-visit.R
           Rscript 02_timeseries.R
