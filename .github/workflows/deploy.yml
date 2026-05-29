@@ -6,7 +6,7 @@ on:
 
   schedule:
     # Runs daily at 7 AM UTC
-    - cron: '0 14 * * 1,3,5'
+    - cron: '0 13 * * 1,3,5'
 
   workflow_dispatch:  # optional manual trigger
 
@@ -48,6 +48,9 @@ jobs:
               any::jsonlite
               any::xml2
               github::bcgov/envreportutils
+              any::rsconnect
+              any::cpp11
+              any::progress
 
       - name: Run data pipeline scripts
         env:
