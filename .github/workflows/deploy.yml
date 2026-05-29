@@ -52,8 +52,6 @@ jobs:
               any::jsonlite
               any::xml2
               github::bcgov/envreportutils
-              any::rsconnect
-              any::shiny
               any::cpp11
               any::progress
 
