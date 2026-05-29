@@ -92,6 +92,7 @@ ui <- page_navbar(
             "Haslam Creek",
             "Illecillewaet River",
             "Little Campbell",
+            "Lost Shoe",
             "Salmon River",
             "Rosewall Creek",
             "Windermere Creek"

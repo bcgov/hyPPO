@@ -32,9 +32,6 @@ password = Sys.getenv("APP_PASSWORD")
 #   stop("Missing credentials: check GitHub secrets")
 # }
 
-prev_year <- 2024
-current_year <- 2025
-
 sites <- list(
   "08HA0045",
   "08HB0007",
@@ -51,7 +48,8 @@ sites <- list(
   "08JC0002", # added sites 2025-11-03
   "08MH0062", # added sites 2026-03-23
   "08MH0059",
-  "08NA0002" # added 2026-04-27
+  "08NA0002", # added 2026-04-27
+  "08HB0044" # added 2026-05-29
 )
 
 ts_sites <- list(
@@ -69,8 +67,9 @@ ts_sites <- list(
   "08JC0008",
   "08MH0062",
   "08MH0059",
-  "08NA0002" # added 2026-04-27
-) # removed five-mile and corkscrew - no ts data yet
+  "08NA0002", # added 2026-04-27
+  "08HB0044" # added 2026-05-29
+)
 
 site <- "08MH0041"
 

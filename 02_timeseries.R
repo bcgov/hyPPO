@@ -13,7 +13,7 @@
 #source('00_setup.R')
 #source('functions.R')
 
-station_locations <- readRDS('out/site_name_lookup.rds')
+site_name_lookup <- readRDS('out/site_name_lookup.rds')
 
 # Retrieve all unique timeseries ids ---------------------------------------------
 
@@ -113,7 +113,7 @@ ts_data_ids <- all_ts_meta |>
     StartTime = as_datetime(StartTime),
     EndTime = as_datetime(EndTime)
   ) |>
-  left_join(station_locations, by = "LocationIdentifier") |>
+  left_join(site_name_lookup, by = "LocationIdentifier") |>
   mutate(
     EndTime = case_when(EndTime > Sys.Date() ~ StartTime, TRUE ~ EndTime)
   ) |>
@@ -131,13 +131,13 @@ latest_trans = ts_data_ids |>
 
 date_from = as.Date('2024-01-01')
 date_to = as.Date(Sys.Date())
-LocationIdentifier = unique(station_locations$LocationIdentifier)
+LocationIdentifier = unique(site_name_lookup$LocationIdentifier)
 Parameter = c("Stage", "Discharge")
 
 Date <- seq.Date(from = date_from, to = date_to, by = "day")
 
 year_grid = crossing(Date, Parameter, LocationIdentifier) |>
-  left_join(station_locations, by = "LocationIdentifier")
+  left_join(site_name_lookup, by = "LocationIdentifier")
 
 ts_data_test <- year_grid |>
   left_join(

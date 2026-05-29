@@ -71,6 +71,8 @@ jobs:
         run: |
           Rscript -e '
 
+            options(rsconnect.packrat = TRUE)
+
             options(repos = c(CRAN = "https://cloud.r-project.org"));
 
             library(rsconnect);

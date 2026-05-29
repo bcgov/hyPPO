@@ -223,7 +223,7 @@ most_recent <- all_fv_info |>
     )
   ) |>
   left_join(
-    fv_meta_data |>
+    all_location_meta |>
       select(LocationName, Latitude, Longitude, ElevationUnits, Elevation),
     by = c('LocationName')
   )
@@ -243,21 +243,22 @@ map_data = current_reading |>
     )
   ) |>
   left_join(
-    most_recent |> select(LocationName, UploadedByUser, Date, Most_Recent),
-    by = c('LocationName')
-  ) |>
-  left_join(
-    fv_meta_data |>
-      select(
-        LocationName,
-        Latitude,
-        Longitude,
-        ElevationUnits,
-        Elevation,
-        color,
-        legend
-      ),
-    by = c('LocationName')
+    most_recent,
+    by = c('LocationName', 'LocationIdentifier')
   )
+# ) |>
+# left_join(
+#   fv_meta_data |>
+#     select(
+#       LocationName,
+#       Latitude,
+#       Longitude,
+#       ElevationUnits,
+#       Elevation,
+#       color,
+#       legend
+#     ),
+#   by = c('LocationName')
+# )
 
 write_csv(map_data, "app/data/map_data.csv")
