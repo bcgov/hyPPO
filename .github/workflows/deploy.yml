@@ -70,6 +70,9 @@ jobs:
           GITHUB_PAT: ${{ secrets.GH_TOKEN }}
         run: |
           Rscript -e '
+
+            options(repos = c(CRAN = "https://cloud.r-project.org"));
+
             library(rsconnect);
 
             rsconnect::setAccountInfo(
