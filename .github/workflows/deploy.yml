@@ -16,11 +16,7 @@ permissions:
 jobs:
   run-and-deploy:
     runs-on: ubuntu-latest
-
-    env:
-      # GitHub auth (for private packages)
-        GITHUB_PAT: ${{ secrets.GH_TOKEN }}
-
+    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
