@@ -30,8 +30,8 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+           sudo apt-get update
+           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libgdal-dev libgeos-dev libproj-dev
 
       - name: Install & cache R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -54,7 +54,7 @@ jobs:
               github::bcgov/envreportutils
               any::cpp11
               any::progress
-              any::terra
+              any::terra@1.7-71
 
       - name: Run data pipeline scripts
         env:
