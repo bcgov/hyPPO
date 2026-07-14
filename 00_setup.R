@@ -77,11 +77,12 @@ ts_sites <- list(
   "08HB0008",
   "08NJ0001",
   "08JC0008",
-  "08MH0062",
+  "08JC0002", # added sites 2025-11-03
+  "08MH0062", # added sites 2026-03-23
   "08MH0059",
   "08NA0002", # added 2026-04-27
   "08HB0044"
-) # removed five-mile and corkscrew - no ts data yet
+) # removed corkscrew - no ts data yet
 
 site <- "08MH0041"
 
