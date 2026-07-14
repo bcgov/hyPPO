@@ -30,8 +30,16 @@ jobs:
 
       - name: Install system dependencies
         run: |
-           sudo apt-get update
-           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libgdal-dev libgeos-dev libproj-dev
+            sudo apt-get update
+            # Pin to GDAL 3.6 which is stable and compatible
+            sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            gdal-bin=3.6* \
+            libgdal-dev=3.6* \
+            libgeos-dev \
+            libproj-dev
 
       - name: Install & cache R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
