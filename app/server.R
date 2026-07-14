@@ -517,7 +517,7 @@ server <- function(input, output, session) {
             max(plot_data$Date)
           )
         ) +
-        theme_soe() +
+        theme_minimal() +
         scale_x_date(date_labels = "%Y-%b", date_breaks = "1 month") +
         theme(
           panel.grid.major = element_line(linewidth = 0.5, colour = "grey85"),
@@ -653,7 +653,7 @@ server <- function(input, output, session) {
           max(plot_data$Date)
         )
       ) +
-      theme_soe() +
+      theme_minimal() +
       scale_x_date(date_labels = "%Y-%b", date_breaks = "1 month") +
       theme(
         panel.grid.major = element_line(linewidth = 0.5, colour = "grey85"),
@@ -771,7 +771,7 @@ server <- function(input, output, session) {
           max(plot_data$Date)
         )
       ) +
-      theme_soe() +
+      theme_minimal() +
       scale_x_date(date_labels = "%Y-%b", date_breaks = "1 month") +
       theme(
         panel.grid.major = element_line(linewidth = 0.5, colour = "grey85"),

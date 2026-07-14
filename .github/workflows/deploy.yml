@@ -51,7 +51,6 @@ jobs:
               any::httr2
               any::jsonlite
               any::xml2
-              github::bcgov/envreportutils
               any::cpp11
               any::progress
 
