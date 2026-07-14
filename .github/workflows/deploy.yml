@@ -54,7 +54,6 @@ jobs:
               github::bcgov/envreportutils
               any::cpp11
               any::progress
-              any::terra@1.7-71
 
       - name: Run data pipeline scripts
         env:
