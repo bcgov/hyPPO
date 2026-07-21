@@ -41,6 +41,7 @@ jobs:
               any::shiny
               any::tidyverse
               any::plotly
+              any::sf
               any::leaflet
               any::bsicons
               any::gt
