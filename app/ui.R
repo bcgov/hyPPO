@@ -82,6 +82,7 @@ ui <- page_navbar(
           choices = c(
             "Clapperton Creek",
             "Chilako River",
+            "Corkscrew Creek",
             "Five Mile",
             "French Creek",
             "Frosst Creek",
