@@ -30,30 +30,51 @@ jobs:
 
       - name: Install system dependencies
         run: |
-            sudo apt-get update
-            sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libgdal-dev
+            sudo apt-get update sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev \
+            libudunits2-dev
 
-      - name: Install & cache R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-           packages: |
-              any::rsconnect
-              any::shiny
-              any::tidyverse
-              any::plotly
-              any::sf
-              any::leaflet
-              any::bsicons
-              any::gt
-              any::bslib
-              any::lubridate
-              any::readr
-              any::forcats
-              any::httr2
-              any::jsonlite
-              any::xml2
-              any::cpp11
-              any::progress
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c(
+          "remotes",
+          "rsconnect",
+          "shiny",
+          "tidyverse",
+          "plotly",
+          "leaflet",
+          "gt",
+          "bsicons",
+          "bslib",
+          "lubridate",
+          "readr",
+          "forcats",
+          "httr2",
+          "jsonlite",
+          "xml2",
+          "cpp11",
+          "progress"
+          ), repos="https://cloud.r-project.org")'
+
+
+      # Pin versions known to work locally
+      - name: Pin deployment packages
+        run: |
+          Rscript -e 'remotes::install_version("terra", version = "1.9-11", repos="https://cloud.r-project.org")'
+          Rscript -e 'remotes::install_version("leaflet", version = "2.2.3", repos="https://cloud.r-project.org")'
+          Rscript -e 'remotes::install_version("rsconnect", version = "1.8.0", repos="https://cloud.r-project.org")'
+
+      - name: Show package versions
+        run: |
+          Rscript -e 'cat("R:", R.version.string, "\n")'
+          Rscript -e 'cat("terra:", as.character(packageVersion("terra")), "\n")'
+          Rscript -e 'cat("leaflet:", as.character(packageVersion("leaflet")), "\n")'
+          Rscript -e 'cat("rsconnect:", as.character(packageVersion("rsconnect")), "\n")'
 
       - name: Run data pipeline scripts
         env:
@@ -71,8 +92,6 @@ jobs:
         run: |
           Rscript -e '
 
-            options(rsconnect.packrat = TRUE)
-
             options(repos = c(CRAN = "https://cloud.r-project.org"));
 
             library(rsconnect);
@@ -83,5 +102,7 @@ jobs:
               secret = Sys.getenv("SHINYAPPS_SECRET")
             );
 
-            rsconnect::deployApp(appDir = "app", appName = "weekly-hydrometric-app")
+            rsconnect::deployApp(appDir = "app",
+            appName = "weekly-hydrometric-app",
+            forceUpdate = TRUE)
           '
